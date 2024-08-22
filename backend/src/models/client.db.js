@@ -1,5 +1,7 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
+import prismaMiddleware from '../middlewares/prismaMiddleware.js';
+
 const prisma = new PrismaClient();
+prismaMiddleware(prisma); 
 
-
-module.exports = { prisma };
+export default prisma;
