@@ -16,9 +16,9 @@ topicRouter
     validateCreateTopic,
     TopicController.createTopic);
 
-topicRouter.post('/:topicId/postpone', authorizeAdmin, validatePostponeTopic, TopicController.postponeTopic);
-topicRouter.post('/:topicId/extend', authorizeAdmin, validateExtendTopic, TopicController.extendTopic);
-topicRouter.post('/:topicId/cancel', authorizeAdmin, TopicController.cancelTopic);
+topicRouter.put('/:topicId/postpone', authorizeAdmin, validatePostponeTopic, TopicController.postponeTopic);
+topicRouter.put('/:topicId/extend', authorizeAdmin, validateExtendTopic, TopicController.extendTopic);
+topicRouter.put('/:topicId/cancel', authorizeAdmin, TopicController.cancelTopic);
 
 topicRouter.get('/active', validateSession, TopicController.getActiveTopics);
 topicRouter.get('/recent-finished', validateSession, TopicController.getRecentFinishedTopics);
