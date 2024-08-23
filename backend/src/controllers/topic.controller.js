@@ -27,7 +27,6 @@ class TopicController {
   static async getTopicById(req, res) {
     const topicId = parseInt(req.params.topicId);
 
-    console.log(topicId)
     try {
       const topic = await TopicDao.getTopicById(topicId);
       if (!topic) {
@@ -44,7 +43,6 @@ class TopicController {
   static async getAllTopicsToBePostponed(req, res) {
     try {
       const topics = await TopicDao.getAllTopicsToBePostponed();
-      console.log(topics);
       return res.status(200).json(topics);
     } catch (error) {
       console.error(error);
@@ -139,12 +137,10 @@ class TopicController {
   }
 
   static async cancelTopic(req, res) {
-    console.log("helooo")
     const topicId = parseInt(req.params.topicId);
   
     try {
       const topic = await TopicDao.getTopicById(topicId);
-      console.log(topic)
       if (!topic) {
         return res.status(404).json({ message: "Topic Not Found" });
       }
@@ -154,7 +150,6 @@ class TopicController {
       }
 
       const updatedTopic = await TopicDao.updateTopicById(topicId, { status: 'CANCELLED' });
-      console.log(updatedTopic)
       return res.status(200).json(updatedTopic);
     } catch (error) {
       console.error(error);

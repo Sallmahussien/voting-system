@@ -12,8 +12,6 @@ const validateSession = (req, res, next) => {
 
     req.user = decoded;
 
-    console.log(decoded)
-
     if (req.user.role !== 'USER' && req.user.role !== 'ADMIN') {
       return res.status(403).json({ message: 'Access denied. Insufficient permissions.' });
     }

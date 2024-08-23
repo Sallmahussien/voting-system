@@ -1,7 +1,6 @@
 import { verifyJwtToken } from "../utils/auth.js"
 
 const authorizeAdmin = (req, res, next) => {
-  console.log('im here')
   try {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) {
