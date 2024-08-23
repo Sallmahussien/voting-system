@@ -14,46 +14,46 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
   firstName  String
   lastName   String
-  email      String   @unique
+  email      String @unique
   password   String
-  nationalId String   @unique
-  role       Role
+  nationalId String @unique
+  role       Role   @default(USER)
   votes      Vote[]
 }
 
 model Topic {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   title       String
   description String
-  status      TopicStatus
+  status      TopicStatus @default(INACTIVE)
   startDate   DateTime
   endDate     DateTime
-  votesCount  Int      @default(0)
+  votesCount  Int         @default(0)
   options     Option[]
   votes       Vote[]
 }
 
-
 model Option {
-  id         Int      @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
   optionText String
-  voteCount  Int      @default(0)
-  topic      Topic    @relation(fields: [topicId], references: [id])
+  voteCount  Int    @default(0)
+  topic      Topic  @relation(fields: [topicId], references: [id])
   topicId    Int
   votes      Vote[]
 }
 
 model Vote {
-  id       Int    @id @default(autoincrement())
   user     User   @relation(fields: [userId], references: [id])
   userId   Int
   topic    Topic  @relation(fields: [topicId], references: [id])
   topicId  Int
   option   Option @relation(fields: [optionId], references: [id])
   optionId Int
+
+  @@id([userId, topicId])
 }
 
 enum Role {
