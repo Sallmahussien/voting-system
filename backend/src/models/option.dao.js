@@ -13,7 +13,7 @@ class OptionDao {
         id: optionId,
       },
       data: {
-        count: {
+        voteCount: {
           increment: 1,
         },
       },

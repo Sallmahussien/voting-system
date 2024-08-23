@@ -42,7 +42,7 @@ class TopicDao {
     return prisma.topic.findMany({
       where: {
         startDate: {
-          lt: now
+          gt: now
         },
         status: {
           not: 'CANCELLED'
@@ -56,7 +56,7 @@ class TopicDao {
     return prisma.topic.findMany({
       where: {
         endDate: {
-          lt: now
+          gt: now
         },
         status: {
           not: 'CANCELLED'
@@ -66,7 +66,6 @@ class TopicDao {
   }
 
   static async getAllTopicsToBeCancelled() {
-    const now = new Date();
     return prisma.topic.findMany({
       where: {
         OR: [
@@ -75,7 +74,7 @@ class TopicDao {
           },
           {
             startDate: {
-              gt: now,
+              gte: now,
             }
           }
         ],
@@ -101,7 +100,7 @@ class TopicDao {
     return prisma.topic.findMany({
       where: {
         endDate: {
-          gte: sevenDaysAgo,
+          lt: sevenDaysAgo,
         },
         status: {
           not: 'CANCELLED',
@@ -117,7 +116,7 @@ class TopicDao {
     return prisma.topic.findMany({
       where: {
         startDate: {
-          lte: sevenDaysLater,
+          gt: sevenDaysLater,
         },
         status: {
           not: 'CANCELLED',
