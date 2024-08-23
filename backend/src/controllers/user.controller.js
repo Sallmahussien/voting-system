@@ -25,6 +25,7 @@ class UserController {
   
     try {
       const user = await UserDao.getUserByEmail(email);
+      console.log(user)
       if (!user) {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
