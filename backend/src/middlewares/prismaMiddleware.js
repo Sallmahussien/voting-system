@@ -1,50 +1,68 @@
 const prismaMiddleware = (prisma) => {
   prisma.$use(async (params, next) => {
-    if (params.model === 'Topic' && (params.action === 'findUnique' || params.action === 'findMany')) {
-      const result = await next(params);
+    const now = new Date();
 
-      if (result) {
-        // Single topic
-        if (!Array.isArray(result)) {
-          const { startDate, endDate, status } = result;
-          const now = new Date();
-          if (status !== 'CANCELLED') {
-            result.status = startDate <= now && endDate >= now ? 'ACTIVE' : 'INACTIVE';
-          }
-        } 
-        // Multiple topics
-        else {
-          result.forEach(topic => {
-            const { startDate, endDate, status } = topic;
-            const now = new Date();
+    if (params.model === 'Topic') {
+      if (params.action === 'findUnique' || params.action === 'findMany') {
+        const result = await next(params);
+
+        if (result) {
+          if (!Array.isArray(result)) {
+            const { startDate, endDate, status } = result;
+
             if (status !== 'CANCELLED') {
-              topic.status = startDate <= now && endDate >= now ? 'ACTIVE' : 'INACTIVE';
+              const newStatus = startDate <= now && endDate >= now ? 'ACTIVE' : 'INACTIVE';
+              
+              if (result.status !== newStatus) {
+                await prisma.topic.update({
+                  where: { id: result.id },
+                  data: { status: newStatus }
+                });
+                result.status = newStatus;
+              }
             }
-          });
+          } 
+          else {
+            await Promise.all(result.map(async (topic) => {
+              const { startDate, endDate, status } = topic;
+
+              if (status !== 'CANCELLED') {
+                const newStatus = startDate <= now && endDate >= now ? 'ACTIVE' : 'INACTIVE';
+                
+                if (topic.status !== newStatus) {
+                  await prisma.topic.update({
+                    where: { id: topic.id },
+                    data: { status: newStatus }
+                  });
+                  topic.status = newStatus;
+                }
+              }
+            }));
+          }
         }
+
+        return result;
       }
 
-      return result;
-    }
+      if (params.action === 'create' || params.action === 'update') {
+        if (params.args.data) {
+          let { startDate, endDate, status } = params.args.data;
 
-    if (params.model === 'Topic' && (params.action === 'create' || params.action === 'update')) {
-      if (params.args.data) {
-        const now = new Date();
-        let { startDate, endDate, status } = params.args.data;
+          if (params.action === 'update' && !status) {
+            const existingTopic = await prisma.topic.findUnique({
+              where: { id: params.args.where.id },
+              select: { status: true, startDate: true, endDate: true }
+            });
 
-        if (params.action === 'update' && !status) {
-          const existingTopic = await prisma.topic.findUnique({
-            where: { id: params.args.where.id },
-            select: { status: true, startDate: true, endDate: true }
-          });
-          
-          status = existingTopic.status;
-          startDate = startDate || existingTopic.startDate;
-          endDate = endDate || existingTopic.endDate;
-        }
+            status = existingTopic.status;
+            startDate = startDate || existingTopic.startDate;
+            endDate = endDate || existingTopic.endDate;
+          }
 
-        if (status !== 'CANCELLED') {
-          params.args.data.status = startDate <= now && endDate >= now ? 'ACTIVE' : 'INACTIVE';
+          if (status !== 'CANCELLED') {
+            const newStatus = startDate <= now && endDate >= now ? 'ACTIVE' : 'INACTIVE';
+            params.args.data.status = newStatus;
+          }
         }
       }
     }
