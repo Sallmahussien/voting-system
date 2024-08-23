@@ -6,7 +6,7 @@ import voteRouter from './vote.route.js';
 
 const router = Router();
 
-router.use('/users', userRouter);
+router.use('/auth', userRouter);
 router.use('/topics', topicRouter);
 router.use('/', optionRouter);
 router.use('/', voteRouter);
