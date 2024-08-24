@@ -6,7 +6,16 @@ class TopicController {
     const { title, description, startDate, endDate, options } = req.body;
 
     try {
-      const topicData = { title, description, startDate, endDate };
+      const startDateISO = new Date(startDate).toISOString();
+      const endDateISO = new Date(endDate).toISOString();
+
+      const topicData = {
+        title,
+        description,
+        startDate: startDateISO,
+        endDate: endDateISO
+      };
+
       const createdTopic = await TopicDao.createTopic(topicData);
       const topicId = createdTopic.id;
       const createdOptions = [];
@@ -14,7 +23,7 @@ class TopicController {
       for (const optionText of options) {
         const optionData = { optionText, topicId };
         const createdOption = await OptionDao.createOption(optionData);
-        createdOptions.push(createdOption)
+        createdOptions.push(createdOption);
       }
 
       return res.status(201).json({ ...createdTopic, options: createdOptions });
@@ -23,6 +32,7 @@ class TopicController {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
 
   static async getTopicById(req, res) {
     const topicId = parseInt(req.params.topicId);
@@ -62,6 +72,7 @@ class TopicController {
 
   static async getAllTopicsToBeCancelled(req, res) {
     try {
+      console.log('hii')
       const topics = await TopicDao.getAllTopicsToBeCancelled();
       return res.status(200).json(topics);
     } catch (error) {
@@ -104,18 +115,18 @@ class TopicController {
   static async extendTopic(req, res) {
     const topicId = parseInt(req.params.topicId);
     const { endDate } = req.body;
-  
+
     try {
       const topic = await TopicDao.getTopicById(topicId);
       if (!topic) {
         return res.status(404).json({ message: "Topic Not Found" });
       }
-  
+
       const newEndDate = new Date(endDate);
       const currentEndDate = new Date(topic.endDate);
       const currentStartDate = new Date(topic.startDate);
       const now = new Date();
-  
+
       if (currentEndDate <= now) {
         return res.status(400).json({ message: "Topic has already ended." });
       }
@@ -138,7 +149,7 @@ class TopicController {
 
   static async cancelTopic(req, res) {
     const topicId = parseInt(req.params.topicId);
-  
+
     try {
       const topic = await TopicDao.getTopicById(topicId);
       if (!topic) {
@@ -196,8 +207,8 @@ class TopicController {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
-  
-  
+
+
 }
 
 export default TopicController;
