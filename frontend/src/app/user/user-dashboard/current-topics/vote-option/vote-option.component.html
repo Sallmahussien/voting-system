@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ data.topic.title }}</h2>
+
+<mat-dialog-content>
+  <mat-radio-group [(ngModel)]="selectedOption" name="options">
+    <mat-radio-button *ngFor="let option of data.topic.options" [value]="option">
+      {{ option.optionText }}
+    </mat-radio-button>
+  </mat-radio-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSubmit()" [disabled]="!selectedOption">Submit</button>
+</mat-dialog-actions>
