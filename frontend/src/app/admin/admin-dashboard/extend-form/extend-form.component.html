@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Extend</h2>
+<div mat-dialog-content>
+  <form [formGroup]="extendForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>End Date</mat-label>
+      <input matInput formControlName="endDate" type="date">
+      <mat-error *ngIf="extendForm.get('endDate')?.hasError('required')">
+        End date is required.
+      </mat-error>
+      <mat-error *ngIf="extendForm.get('endDate')?.hasError('dateBeforeEnd')">
+        Date must be after the topic's End date.
+      </mat-error>
+    </mat-form-field>
+    <div class="form-actions">
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button type="submit" [disabled]="extendForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>

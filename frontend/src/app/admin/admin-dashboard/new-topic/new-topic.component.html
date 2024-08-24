@@ -1,0 +1,72 @@
+<div class="new-topic-container">
+  <h2>Create New Topic</h2>
+
+  <form [formGroup]="newTopicForm" (ngSubmit)="onSubmit()">
+    <div class="form-control">
+      <label for="title">Title:</label>
+      <input id="title" type="text" formControlName="title">
+      <div *ngIf="isFieldInvalid('title')">
+        <small *ngIf="newTopicForm.get('title')?.errors?.['required']">
+          Title is required.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div *ngIf="isFieldInvalid('description')">
+        <small *ngIf="newTopicForm.get('description')?.errors?.['required']">
+          Description is required.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="startDate">Start Date:</label>
+      <input id="startDate" type="date" formControlName="startDate">
+      <div *ngIf="isFieldInvalid('startDate')">
+        <small *ngIf="newTopicForm.get('startDate')?.errors?.['required']">
+          Start date is required.
+        </small>
+        <small *ngIf="newTopicForm.errors?.['startDateInvalid']">
+          Start date must be today or in the future.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="endDate">End Date:</label>
+      <input id="endDate" type="date" formControlName="endDate">
+      <div *ngIf="isFieldInvalid('endDate')">
+        <small *ngIf="newTopicForm.get('endDate')?.errors?.['required']">
+          End date is required.
+        </small>
+        <small *ngIf="newTopicForm.errors?.['dateRangeInvalid']">
+          The end date must be after the start date.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>Options:</label>
+      <div formArrayName="options">
+        <div class="options-container" *ngFor="let option of options.controls; let i = index">
+          <input [formControlName]="i" placeholder="Option {{i + 1}}">
+          <button type="button" (click)="removeOption(i)" *ngIf="options.length > 2">Remove</button>
+        </div>
+      </div>
+      <button type="button" (click)="addOption()" [disabled]="options.length >= 5">Add Option</button>
+      <div *ngIf="options.errors?.['minlength']">
+        <small>At least 2 options are required.</small>
+      </div>
+      <div *ngIf="options.errors?.['maxlength']">
+        <small>No more than 5 options are allowed.</small>
+      </div>
+    </div>
+
+
+    <button type="submit">Submit</button>
+  </form>
+
+</div>

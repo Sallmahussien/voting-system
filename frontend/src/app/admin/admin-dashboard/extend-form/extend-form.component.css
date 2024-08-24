@@ -1,0 +1,18 @@
+mat-form-field .mat-form-field-subscript-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field .mat-form-field-error {
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+mat-error {
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.form-actions {
+  margin-top: 10px;
+}

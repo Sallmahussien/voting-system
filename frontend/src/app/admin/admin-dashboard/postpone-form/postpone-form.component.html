@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Postpone</h2>
+<div mat-dialog-content>
+  <form [formGroup]="postponeForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input matInput formControlName="startDate" type="date">
+      <mat-error *ngIf="postponeForm.get('startDate')?.hasError('required')">
+        Start date is required.
+      </mat-error>
+      <!-- <mat-error *ngIf="postponeForm.get('startDate')?.hasError('dateInvalid')">
+        Date must be greater than now.
+      </mat-error> -->
+      <mat-error *ngIf="postponeForm.get('startDate')?.hasError('dateBeforeStart')">
+        Date must be after the topic's start date.
+      </mat-error>
+    </mat-form-field>
+    <div class="form-actions">
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button type="submit" [disabled]="postponeForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>

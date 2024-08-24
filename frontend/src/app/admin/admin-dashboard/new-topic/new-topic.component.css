@@ -1,0 +1,87 @@
+.new-topic-container {
+  width: 100%;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  padding: 20px 25px;
+}
+
+form {
+  max-width: 500px;
+  border-radius: 8px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+button[type="button"],
+button[type="submit"] {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #66b0ff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button[type="button"]:hover,
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="button"]:disabled,
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.option-container {
+  margin: 10px 0;
+}
+
+small {
+  color: red;
+  font-size: 12px;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.options-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.options-container input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
