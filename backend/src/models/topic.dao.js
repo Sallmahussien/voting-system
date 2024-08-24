@@ -66,6 +66,7 @@ class TopicDao {
   }
 
   static async getAllTopicsToBeCancelled() {
+    const now = new Date();
     return prisma.topic.findMany({
       where: {
         OR: [
