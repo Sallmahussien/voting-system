@@ -4,8 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeneralTopicsComponent } from './general-topics/general-topics.component';
 
-
-
 @NgModule({
   declarations: [
     LoginComponent,

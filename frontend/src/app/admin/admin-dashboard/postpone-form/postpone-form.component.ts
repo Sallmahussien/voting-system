@@ -51,7 +51,6 @@ export class PostponeFormComponent {
 
       this.getTopicsService.submitAction(submitUrl, formData).subscribe(
         response => {
-          console.log('Update successful', response);
           this.dialogRef.close(formData);
         },
         error => {

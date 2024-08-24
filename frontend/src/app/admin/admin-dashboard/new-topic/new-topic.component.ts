@@ -58,6 +58,4 @@ export class NewTopicComponent implements OnInit {
     const control = this.newTopicForm.get(field);
     return control?.invalid && (control?.touched || control?.dirty);
   }
-
 }
-
