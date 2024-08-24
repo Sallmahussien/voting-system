@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TopicService {
-
   private apiUrl = 'http://localhost:8000/api/v1/topics';
 
   constructor(private http: HttpClient) { }

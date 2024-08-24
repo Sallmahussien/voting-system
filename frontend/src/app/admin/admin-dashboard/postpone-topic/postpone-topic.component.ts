@@ -46,4 +46,3 @@ export class PostponeTopicComponent {
     return () => this.openPostponeForm();
   }
 }
-

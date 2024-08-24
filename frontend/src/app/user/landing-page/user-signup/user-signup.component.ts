@@ -48,5 +48,4 @@ export class UserSignupComponent {
       this.signupForm.markAllAsTouched();
     }
   }
-
 }

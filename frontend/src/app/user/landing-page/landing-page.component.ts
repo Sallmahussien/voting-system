@@ -16,5 +16,4 @@ export class LandingPageComponent {
   goToSignup(): void {
     this.router.navigate(['/signup']);
   }
-
 }
