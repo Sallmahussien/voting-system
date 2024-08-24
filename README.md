@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Voting System project is a full-stack application consisting of a frontend built with Angular and a backend API built with Node.js/Express. The system allows users to view topics, vote on options related to topics, and manage topic-related actions through a user-friendly interface.
+The Voting System project is a full-stack application consisting of a frontend built with `Angular` and a backend API built with `Node.js/Express`. The system allows users to view topics, vote on options related to topics, and manage topic-related actions through a user-friendly interface.
 
 ## Features
 
@@ -110,8 +110,8 @@ The Voting System project is a full-stack application consisting of a frontend b
 ### User Interface
 
 #### User Registration
-  ![User Login](./images/signin-for-user.png)
   ![User Singup](./images/signup-for-user.png)
+  ![User Login](./images/signin-for-user.png)
 #### Current Topics
   ![Current Topics](./images/current-topics.png)
 #### Voting for an option
@@ -131,5 +131,6 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 
 For any questions or issues, please contact:
 
-- **Salma Hussien** - [salmaa.hussien1@gmail.com](mailto:your-email@example.com)
+- **Email** - [salmaa.hussien1@gmail.com](mailto:your-email@example.com)
 - **GitHub:** [Sallmahussien](https://github.com/Sallmahussien/)
+- **LinkedIn** - [Salma Ahmed](https://www.linkedin.com/in/sallma-ahmed/)
