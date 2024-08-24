@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="list-section">
+    <h2>{{ sectionTitle }}</h2>
+    <ul class="topics-list">
+      <li *ngFor="let topic of topics" (click)="selectTopic(topic)" class="topic-item">
+        <h3>{{ topic.title }}</h3>
+        <p>Votes Count: {{ topic.votesCount }}</p>
+      </li>
+    </ul>
+  </div>
+  <div class="details-section" *ngIf="selectedTopic">
+    <h2>{{ selectedTopic.title }}</h2>
+    <h3>Description</h3>
+    <p>{{ selectedTopic.description }}</p>
+    <p><strong>Start Date:</strong> {{ selectedTopic.startDate | date }}</p>
+    <p><strong>End Date:</strong> {{ selectedTopic.endDate | date }}</p>
+    <p><strong>Total Votes:</strong> {{ selectedTopic.votesCount }}</p>
+
+    <h3>Options:</h3>
+    <ul>
+      <li *ngFor="let option of selectedTopic.options" class="option-item">
+        <div class="option-container">
+          <span class="option-text">{{ option.optionText }}</span>
+          <span class="option-vote-count">{{ option.voteCount }} votes</span>
+        </div>
+      </li>
+    </ul>
+    <button (click)="onSubmit()" class="submit-button" *ngIf="display">{{ buttonLabel }}</button>
+  </div>
+</div>
