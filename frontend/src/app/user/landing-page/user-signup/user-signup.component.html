@@ -1,0 +1,65 @@
+<div class="signup-container">
+  <h2 class="signup-title">Sign Up</h2>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" formControlName="firstName" class="form-control" />
+      <div
+        *ngIf="formControls['firstName'].invalid && (formControls['firstName'].dirty || formControls['firstName'].touched)"
+        class="error-message">
+        <div *ngIf="formControls['firstName'].errors?.['required']">First name is required.</div>
+        <div *ngIf="formControls['firstName'].errors?.['minlength']">First name must be at least 3 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" formControlName="lastName" class="form-control" />
+      <div
+        *ngIf="formControls['lastName'].invalid && (formControls['lastName'].dirty || formControls['lastName'].touched)"
+        class="error-message">
+        <div *ngIf="formControls['lastName'].errors?.['required']">Last name is required.</div>
+        <div *ngIf="formControls['lastName'].errors?.['minlength']">Last name must be at least 3 characters long.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" class="form-control" />
+      <div *ngIf="formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)"
+        class="error-message">
+        <div *ngIf="formControls['email'].errors?.['required']">Email is required.</div>
+        <div *ngIf="formControls['email'].errors?.['email']">Invalid email address.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" class="form-control" />
+      <div
+        *ngIf="formControls['password'].invalid && (formControls['password'].dirty || formControls['password'].touched)"
+        class="error-message">
+        <div *ngIf="formControls['password'].errors?.['required']">Password is required.</div>
+        <div *ngIf="formControls['password'].errors?.['minlength']">Password must be at least 6 characters long.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nationalId">National ID</label>
+      <input type="text" id="nationalId" formControlName="nationalId" class="form-control" />
+      <div
+        *ngIf="formControls['nationalId'].invalid && (formControls['nationalId'].dirty || formControls['nationalId'].touched)"
+        class="error-message">
+        <div *ngIf="formControls['nationalId'].errors?.['required']">National ID is required.</div>
+        <div *ngIf="formControls['nationalId'].errors?.['minlength']">National ID must be exactly 14 characters long.
+        </div>
+        <div *ngIf="formControls['nationalId'].errors?.['maxlength']">National ID must be exactly 14 characters long.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid" class="submit-button">Sign Up</button>
+  </form>
+</div>
